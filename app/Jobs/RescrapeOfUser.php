@@ -60,7 +60,7 @@ class RescrapeOfUser implements ShouldQueue
                 return;
             }
 
-            throw $e; // retry with backoff
+            throw $e;
         }
     }
 }

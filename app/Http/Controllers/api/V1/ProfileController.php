@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $query = Profile::query()
             ->orderByDesc('last_scraped_at');
@@ -19,7 +20,7 @@ class ProfileController extends Controller
         );
     }
 
-    public function show(string $handle)
+    public function show(string $handle): ProfileResource
     {
         $profile = Profile::where('username', $handle)->firstOrFail();
         return new ProfileResource($profile);

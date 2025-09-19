@@ -2,16 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Events\ScrapeFinalized;
 use App\Models\Profile;
 use App\Models\Scrape;
-use App\Services\Scraping\ProfileScraper; // <- concrete (no binding needed)
+use App\Services\Scraping\ProfileScraper;
 use App\Services\Scraping\ProfileScraperInterface;
-use Illuminate\Bus\Queueable;                 // <- correct Queueable
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;        // optional but fine
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
