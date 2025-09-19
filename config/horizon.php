@@ -186,7 +186,7 @@ return [
     'defaults' => [
         'supervisor-1' => [
             'connection' => 'database',
-            'queue' => ['scraping','webhooks'],
+            'queue' => ['scraping','webhooks', 'rescraping', 'default'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
             'minProcesses' => 1,

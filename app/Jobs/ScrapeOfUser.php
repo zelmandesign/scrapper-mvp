@@ -43,6 +43,8 @@ class ScrapeOfUser implements ShouldQueue
             return;
         }
 
+        Log::info("[scrape:start] scrape_id={$scrape->id}, username={$scrape->username}");
+
         $scrape->update(['status' => 'running', 'error_message' => null]);
 
         /** @var ProfileScraperInterface $scraper */
@@ -71,9 +73,12 @@ class ScrapeOfUser implements ShouldQueue
                 ]);
             });
 
-            Log::info("[scrape:{$scrape->id}] Succeeded for {$scrape->username}.");
+            Log::info("[scrape:succeeded] scrape_id={$scrape->id}, username={$scrape->username}, profile_id={$scrape->profile_id}");
 
-            SendWebhook::dispatch($scrape->id);
+            if (!empty($scrape->webhook_url)) {
+                Log::info("[scrape:webhook_dispatch] scrape_id={$scrape->id}, url={$scrape->webhook_url}");
+                SendWebhook::dispatch($scrape->id);
+            }
 
         } catch (Throwable $e) {
             Log::error("[scrape:{$scrape->id}] Failed: {$e->getMessage()}");
@@ -83,7 +88,10 @@ class ScrapeOfUser implements ShouldQueue
                     'status'        => 'failed',
                     'error_message' => $e->getMessage(),
                 ]);
-                SendWebhook::dispatch($scrape->id);
+                if (!empty($scrape->webhook_url)) {
+                    Log::error("[scrape:failed] scrape_id={$scrape->id}, username={$scrape->username}, error={$e->getMessage()}");
+                    SendWebhook::dispatch($scrape->id);
+                }
                 return;
             }
 

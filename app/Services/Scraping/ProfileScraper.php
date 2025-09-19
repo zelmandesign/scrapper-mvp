@@ -20,7 +20,7 @@ class ProfileScraper implements ProfileScraperInterface
             'username' => $username,
             'name' => ucfirst($username),
             'bio' => 'Fake bio for ' . $username,
-            'likes_count' => rand(0, 200000),
+            'likes_count' => rand(10000, 200000),
             'avatar_url' => 'https://picsum.photos/200',
             'scraped_at' => now(),
         ];
