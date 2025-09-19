@@ -1,5 +1,3 @@
-Got it 👍 — let’s keep it simple and clean. Here’s the README.md draft with everything you need:
-
 # Scraping Microservice
 
 This project is a Laravel 12.x microservice that handles scraping, profiles, and webhooks.  
@@ -62,6 +60,3 @@ http://localhost/horizon
 - Redis is the **queue driver**
 - Horizon is used to **supervise and monitor jobs**
 - Use `sail artisan horizon` to start workers after bringing containers up
-
-⸻
-Do you want me to also add a section showing example endpoints (like /v1/scrapes POST, /v1/profiles GET) so that README doubles as quick API docs?
