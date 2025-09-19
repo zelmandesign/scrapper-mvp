@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Jobs\RescrapeOfUser;
 use App\Models\Profile;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
 
 class RescrapeProfiles extends Command
 {
-    private const PROFILE_THRESHOLD = 100_000; // 100k likes
+    private const PROFILE_THRESHOLD = 100_000;
     private const CHUNK_SIZE = 500;
 
     protected $signature = 'profiles:rescrape {--tier=high}';
@@ -36,7 +39,7 @@ class RescrapeProfiles extends Command
         return self::SUCCESS;
     }
 
-    private function getProfilesQuery(string $tier)
+    private function getProfilesQuery(string $tier): Builder
     {
         $threshold = self::PROFILE_THRESHOLD;
 

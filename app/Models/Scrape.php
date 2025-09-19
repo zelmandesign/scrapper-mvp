@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Database\Factories\ScrapeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Scrape extends Model
 {
-    /** @use HasFactory<\Database\Factories\ScrapeFactory> */
+    /** @use HasFactory<ScrapeFactory> */
     use HasFactory;
 
     protected $fillable = [

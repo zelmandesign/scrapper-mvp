@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\V1\ProfileController;
-use App\Http\Controllers\api\V1\ScrapeController;
-use App\Http\Controllers\api\V1\SearchController;
+use App\Http\Controllers\Api\V1\ScrapeController;
+use App\Http\Controllers\Api\V1\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -25,7 +25,6 @@ Route::prefix('v1')->group(function () {
     ->where('handle', '[A-Za-z0-9_.-]+');
     Route::get('/search', [SearchController::class, 'index']);
 
-    // Write (Sanctum)
     Route::middleware(['auth:sanctum', 'throttle:10,1'])->group(function () {
         Route::post('/scrapes', [ScrapeController::class, 'store']);
         Route::get('/scrapes/{scrape}', [ScrapeController::class, 'show'])->name('scrapes.show');

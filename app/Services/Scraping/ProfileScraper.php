@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Scraping;
 
 use App\Models\Scrape;
@@ -10,10 +12,8 @@ use App\Models\Scrape;
  * Fake scraper used for MVP.
  * Generates deterministic placeholder data instead of real scraping.
  */
-
-class ProfileScraper implements ProfileScraperInterface
+readonly class ProfileScraper implements ProfileScraperInterface
 {
-    public function __construct(public Scrape $scrape) {}
     public function scrape(string $username): array
     {
         return [

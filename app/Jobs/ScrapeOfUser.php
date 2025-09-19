@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
-use App\Events\ScrapeFinalized;
 use App\Models\Profile;
 use App\Models\Scrape;
-use App\Services\Scraping\ProfileScraper; // <- concrete (no binding needed)
-use App\Services\Scraping\ProfileScraperInterface;
-use Illuminate\Bus\Queueable;                 // <- correct Queueable
+use App\Services\Scraping\ProfileScraper;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;        // optional but fine
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -30,7 +30,6 @@ class ScrapeOfUser implements ShouldQueue
 
     public function handle(): void
     {
-        /** @var Scrape|null $scrape */
         $scrape = Scrape::find($this->scrapRequestID);
 
         if (!$scrape) {
@@ -47,14 +46,12 @@ class ScrapeOfUser implements ShouldQueue
 
         $scrape->update(['status' => 'running', 'error_message' => null]);
 
-        /** @var ProfileScraperInterface $scraper */
         $scraper = app(ProfileScraper::class);
 
         try {
             $data = $scraper->scrape($scrape->username);
 
             DB::transaction(function () use ($scrape, $data) {
-                /** @var Profile $profile */
                 $profile = Profile::updateOrCreate(
                     ['username' => $data['username']],
                     [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +13,12 @@ class Profile extends Model
     use HasFactory, Searchable;
 
     protected $fillable = [
-        'username','name','bio','likes_count','avatar_url','last_scraped_at',
+        'username',
+        'name',
+        'bio',
+        'likes_count',
+        'avatar_url',
+        'last_scraped_at',
     ];
 
     protected $casts = [
