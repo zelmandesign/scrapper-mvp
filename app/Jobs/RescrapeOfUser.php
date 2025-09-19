@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Profile;
@@ -25,9 +27,11 @@ class RescrapeOfUser implements ShouldQueue
         $this->onQueue('rescraping');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function handle(): void
     {
-        /** @var Profile|null $profile */
         $profile = Profile::find($this->profileId);
 
         if (!$profile) {

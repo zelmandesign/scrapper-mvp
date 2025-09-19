@@ -54,8 +54,8 @@ sail artisan queue:work –queue=scraping,rescraping,webhooks
 
 Run rescrape manually:
 
-sail artisan profiles:rescrape –tier=high
-sail artisan profiles:rescrape –tier=normal
+sail artisan profiles:rescrape --tier=high
+sail artisan profiles:rescrape --tier=normal
 
 Run the scheduler loop:
 

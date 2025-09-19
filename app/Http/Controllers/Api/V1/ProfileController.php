@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
@@ -15,8 +17,11 @@ class ProfileController extends Controller
         $query = Profile::query()
             ->orderByDesc('last_scraped_at');
 
+        $perPage = (int)$request->get('per_page', 20);
+        $perPage = max(1, min($perPage, 100)); // Clamp between 1 and 100
+
         return ProfileResource::collection(
-            $query->paginate((int)($request->get('per_page', 20)))
+            $query->paginate($perPage)
         );
     }
 
